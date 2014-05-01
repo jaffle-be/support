@@ -1,9 +1,4 @@
 <?php
-/**
- * User: thomas
- * Date: 01/05/14
- * Time: 10:48
- */
 
 namespace Jaffle\Support;
 
