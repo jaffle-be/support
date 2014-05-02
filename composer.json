@@ -13,7 +13,9 @@
         "illuminate/database":"4.1.x"
     },
     "autoload": {
-        "classmap":[],
+        "classmap":[
+            "src/migrations"
+        ],
         "files":[],
         "psr-0": {
             "Jaffle\\Support": "src/"
