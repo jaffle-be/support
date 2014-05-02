@@ -1,6 +1,6 @@
 <?php
 
-namespace Jaffle\Support\Eloquent;
+namespace Jaffle\Support\Database\Eloquent;
 
 use Validator;
 use Illuminate\Events\Dispatcher;
