@@ -2,72 +2,54 @@
 
 namespace Jaffle\Support\Database\Eloquent;
 
-use Validator;
 use Illuminate\Events\Dispatcher;
+use Carbon\Carbon;
+use Auth;
 
 class Observer {
-
-    /**
-     * Validation rules to follow
-     * Keep these static to not duplicate them on each request
-     * @var array
-     */
-    protected static $rules = array();
-
-    /**
-     * Patterns to be replaced in the validation rules.
-     *
-     * key = name of the field to validate
-     * value = an array with
-     *  - a key as the pattern to replace
-     *  - a value as what to replace the pattern with
-     *    while referencing an attribute of the current model
-     *
-     * Keep these static to not duplicate them on each request
-     * @var array
-     */
-    protected static $patterns = array();
 
     /**
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
 
+    /**
+     * @param Dispatcher $events
+     */
     public function __construct(Dispatcher $events)
     {
         $this->events = $events;
     }
 
-    protected function enforce($model, $rules)
+    /**
+     * track all columns for the given field
+     * @param $model
+     * @param $field
+     */
+    protected function track($model, $field)
     {
-        if(isset(static::$patterns))
-        {
-            foreach(static::$patterns as $field => $patterns)
-            {
-                foreach($patterns as $pattern => $replacement)
-                {
-                    $rules[$field] = preg_replace($pattern, $model->getAttribute($replacement), $rules[$field]);
-                }
-            }
-        }
-
-        return $rules;
+        $this->trackAt($model, $field);
+        $this->trackBy($model, $field);
     }
 
     /**
-     * Get a validator for a model by a predefined ruleset
-     * @param $model \Jaffle\Support\Eloquent\Model the model to validate
-     * @param $rule string the key to use from the rules array
+     * only track '_by' column for the given field
+     * @param $model
+     * @param $field
      */
-    protected function getValidator($model, $rule)
+    protected function trackBy($model, $field)
     {
-        if(isset(static::$rules[$rule]))
-        {
-            return Validator::make($model->getAttributes(), $this->enforce($model, static::$rules[$rule]));
-        }
+        $model->{$field . '_by'} = Auth::user() ? Auth::user()->id : null;
+    }
 
-        throw new ValidatorRulesetNotFound($rule . ' is an unknown ruleset for ' . get_class($this));
-
+    /**
+     * only track '_at' column for the given field
+     * @param $model
+     * @param $field
+     */
+    protected function trackAt($model, $field)
+    {
+        $model->{$field . '_at'} = Carbon::create()->format('Y-m-d H:i:s');
     }
 
 } 

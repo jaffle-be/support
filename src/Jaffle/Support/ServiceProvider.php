@@ -17,7 +17,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider{
 
     public function register()
     {
-
+        include(__DIR__ . '/../../start.php');
     }
 
     public function provides()
