@@ -41,7 +41,7 @@ class ConsoleServiceProvider extends \Illuminate\Support\ServiceProvider{
 
         $this->app->bindShared('support::dev.generator.command', function($app)
         {
-            return new CommandGenerator(new StubCreator($app['stub']));
+            return new CommandGenerator(new StubCreator($app['files']));
         });
 
         $this->commands(array('support::dev.generator.service', 'support::dev.generator.command'));

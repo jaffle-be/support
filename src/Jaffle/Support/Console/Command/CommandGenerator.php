@@ -28,27 +28,6 @@ class CommandGenerator extends Generator{
      */
     public function fire()
     {
-        $this->create('command', array('namespace' => 'MyNamespace'));
+        $this->create('command');
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array();
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array();
-    }
-
 }

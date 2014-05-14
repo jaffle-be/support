@@ -28,27 +28,6 @@ class ServiceGenerator extends Generator{
      */
     public function fire()
     {
-        $this->create('serviceProvider', array('namespace' => 'jaffle.support.console.command.test'));
+        $this->create('serviceProvider');
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array();
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array();
-    }
-
 } 

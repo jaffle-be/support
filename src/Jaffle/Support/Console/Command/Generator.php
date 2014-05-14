@@ -4,6 +4,7 @@ namespace Jaffle\Support\Console\Command;
 
 use Jaffle\Support\Console\StubCreator;
 use Str;
+use Symfony\Component\Console\Input\InputArgument;
 
 abstract class Generator extends \Illuminate\Console\Command{
 
@@ -37,21 +38,38 @@ abstract class Generator extends \Illuminate\Console\Command{
         parent::__construct();
     }
 
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('namespace', InputArgument::REQUIRED, 'provide a namespace in `dot notation` which resides in a vendor/workbench package dir, starting from the src')
+        );
+    }
+
     /**
      * @param $stub
      * @param array $data
      */
     protected function create($stub, array $data = array())
     {
+        if(empty($data['namespace']))
+        {
+            $data['namespace'] = $this->argument('namespace');
+        }
 
         if($namespace = $data['namespace'])
         {
             $this->setNamespaceArguments($namespace);
 
-            $data = array_merge(array(
+            $data = array_merge($data, array(
                 'namespace' => $this->namespace,
-                'class' => $this->classname
-            ), $data);
+                'classname' => $this->classname
+            ));
         }
 
         $stub = $this->creator->create($stub, $data);
@@ -103,6 +121,13 @@ abstract class Generator extends \Illuminate\Console\Command{
     protected function save($stub)
     {
         $filename = $this->filename();
+
+        if(!$this->path)
+        {
+            $this->error('ABORT ABORT no valid namespace provided');
+
+            return false;
+        }
 
         return $this->creator->save($this->path . '/' . $filename, $stub);
     }

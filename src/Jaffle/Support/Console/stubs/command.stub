@@ -1,6 +1,6 @@
 <?php namespace {{namespace}};
 
-class {{snake_case(command)}} extends \Illuminate\Console\Command {
+class {{classname}} extends \Illuminate\Console\Command {
 
     /**
      * The console command name.
