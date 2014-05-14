@@ -1,0 +1,47 @@
+<?php namespace {{namespace}};
+
+class {{snake_case(command)}} extends \Illuminate\Console\Command {
+
+    /**
+     * The console command name.
+     * @todo define name
+     * @var string
+     */
+    protected $name = '';
+
+    /**
+     * The console command description.
+     * @todo define description
+     * @var string
+     */
+    protected $description = '' ;
+
+    /**
+     * @todo define the task being performed here
+     */
+    public function fire()
+    {
+        //@todo implement the function
+    }
+
+    /**
+     * Get the console command arguments.
+     * @todo define any arguments or delete this function for cleanup
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array();
+    }
+
+    /**
+     * Get the console command options.
+     * @todo define any options or delete this function for cleanup
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array();
+    }
+
+}
