@@ -10,4 +10,4 @@ namespace Jaffle\Support\Frontend\Css;
 
 class CssServiceProvider {
 
-} 
+}
