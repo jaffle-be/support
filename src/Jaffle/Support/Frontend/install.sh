@@ -1,3 +1,4 @@
+#!/bin/sh
 # we first want to install our dependencies
 
 

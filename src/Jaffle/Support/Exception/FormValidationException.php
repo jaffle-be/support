@@ -6,17 +6,18 @@
  */
 
 namespace Jaffle\Support\Exception;
+use Illuminate\Support\MessageBag;
 
 class FormValidationException extends \Exception{
 
     /**
-     * @var array
+     * @var \Illuminate\Support\MessageBag|array
      */
     protected $errors;
 
     /**
      * @param string $message
-     * @param array $errors
+     * @param \Illuminate\Support\MessageBag|array $errors
      */
     function __construct($message, $errors = array())
     {
@@ -25,6 +26,9 @@ class FormValidationException extends \Exception{
         parent::__construct($message);
     }
 
+    /**
+     * @return \Illuminate\Support\MessageBag|array
+     */
     public function getErrors()
     {
         return $this->errors;

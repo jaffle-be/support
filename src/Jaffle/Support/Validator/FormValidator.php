@@ -36,6 +36,12 @@ abstract class FormValidator {
         $this->errors = $messages;
     }
 
+    /**
+     * Validate a form by its data and a set of rules
+     * @param array $formData
+     * @return bool
+     * @throws \Jaffle\Support\Exception\FormValidationException
+     */
     public function validate(array $formData)
     {
         $this->validation = $this->validator->make($formData, $this->getValidationRules());
@@ -46,16 +52,29 @@ abstract class FormValidator {
 
             throw new FormValidationException('Form failed', $this->getValidationErrors());
         }
+
+        return true;
     }
 
+    /**
+     * @param $value
+     * @param null $key
+     * @return MessageBag
+     */
     protected function addErrors($value, $key = null)
     {
         if(is_string($value))
         {
-            $value = empty($key) ? (array) $value : array($key => $value);
+            if(empty($key))
+            {
+                $value = array($value);
+            }
+            else{
+                $value = array($key => $value);
+            }
         }
 
-        $this->errors->merge($value);
+        return $this->errors->merge($value);
     }
 
     protected function getValidationRules()
@@ -63,6 +82,9 @@ abstract class FormValidator {
         return $this->rules;
     }
 
+    /**
+     * @return MessageBag
+     */
     public function getValidationErrors()
     {
         return $this->errors;
