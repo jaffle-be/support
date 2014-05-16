@@ -17,6 +17,11 @@ class GeneratorNamespaceMethodsTest extends TestCase
 
     protected $expectedPath = '../../../../../../sub/src/';
 
+    public function testGettingFilenameWithoutExtension()
+    {
+//        $filename = $this->invokeMethod($generator, 'filename');
+    }
+
     public function testVerification()
     {
         $gen = $this->generator();
@@ -69,6 +74,32 @@ class GeneratorNamespaceMethodsTest extends TestCase
         ));
 
         $this->assertSame($this->preparedNamespace, $result);
+    }
+
+    public function testSetNamespaceArguments()
+    {
+        $gen = $this->generator();
+
+        $this->invokeMethod($gen, 'setNamespaceArguments', array(
+            'namespace' =>$this->namespace
+        ));
+
+//        $ref = new \ReflectionClass('Jaffle\Support\Console\Command\Generator');
+//        $namespace = $ref->getProperty('namespace');
+//        $namespace->setAccessible(true);
+//        $this->assertSame($this->resultNamespace, $namespace->getValue($gen));
+//
+//        $classname = $ref->getProperty('classname');
+//        $classname->setAccessible(true);
+//        $this->assertSame($this->expectedClassname, $classname->getValue($gen));
+
+//        $path = $ref->getProperty('path');
+//        $path->setAccessible(true);
+//        $this->assertSame($this->expectedPath, $path->getValue($gen));
+
+//        $filename = $ref->getProperty('filename');
+//        $filename->setAccessible(true);
+//        $this->assertSame($this->expectedFilename, $filename->getValue($gen));
     }
 
     protected function generator()

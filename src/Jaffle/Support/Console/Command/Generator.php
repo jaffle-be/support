@@ -147,9 +147,9 @@ abstract class Generator extends \Illuminate\Console\Command{
             $namespace = $this->prepareNamespace($namespace);
         }
 
-        $pieces = explode(' ', $namespace);
+        $namespace = ucwords($namespace);
 
-        $this->classname = ucwords(array_pop($pieces));
+        $this->classname = str_replace(' ', '\\', $namespace);
     }
 
     /**
@@ -159,9 +159,13 @@ abstract class Generator extends \Illuminate\Console\Command{
     {
         $pieces = explode(' ', $namespace);
 
-        $path = ucwords(str_replace(' ', '/', ucwords(implode(' ', $pieces))));
+        array_pop($pieces);
 
-        $this->path = $this->reponise($pieces, $path);
+        $namespace = implode(' ', $pieces);
+
+        $path = ucwords(str_replace(' ', '/', ucwords($namespace)));
+
+        $this->path = $this->reponise($namespace, $path);
     }
 
     protected function setFilename($namespace)
@@ -173,17 +177,19 @@ abstract class Generator extends \Illuminate\Console\Command{
 
         $pieces = explode(' ', $namespace);
 
-        $$this->filename = array_pop($pieces);
+        $this->filename = array_pop($pieces);
     }
 
     /**
      * Add repository prefix if applicable
-     * @param array $pieces
+     * @param string $namespace
      * @param string $path
      * @return string
      */
-    protected function reponise(array $pieces, $path)
+    protected function reponise($namespace, $path)
     {
+        $pieces = explode(' ', $namespace);
+
         $repo = isset($pieces[1]) ? $pieces[1] : false;
 
         if($repo)
@@ -197,7 +203,7 @@ abstract class Generator extends \Illuminate\Console\Command{
              */
             $base = __DIR__ . '/../../../../../../';
 
-            return $base . $repo .'/src/' . $this->path;
+            return $base . $repo .'/src/' . $path;
         }
 
         return $path;
@@ -227,7 +233,7 @@ abstract class Generator extends \Illuminate\Console\Command{
             return false;
         }
 
-        return $this->creator->save($this->path . '/' . $filename, $stub);
+        return $this->creator->save($stub, $this->path . '/' . $filename);
     }
 
 } 
