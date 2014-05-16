@@ -9,7 +9,7 @@ namespace Jaffle\Support\Console;
 
 use Jaffle\Support\Console\Command\ServiceGenerator;
 use Jaffle\Support\Console\Command\CommandGenerator;
-use Jaffle\Support\Console\StubCreator;
+use Jaffle\Support\Console\Stub;
 
 class ConsoleServiceProvider extends \Illuminate\Support\ServiceProvider{
 
@@ -36,12 +36,12 @@ class ConsoleServiceProvider extends \Illuminate\Support\ServiceProvider{
     {
         $this->app->bindShared('support::dev.generator.service', function($app)
         {
-            return new ServiceGenerator(new StubCreator($app['files']));
+            return new ServiceGenerator(new Stub($app['files']));
         });
 
         $this->app->bindShared('support::dev.generator.command', function($app)
         {
-            return new CommandGenerator(new StubCreator($app['files']));
+            return new CommandGenerator(new Stub($app['files']));
         });
 
         $this->commands(array('support::dev.generator.service', 'support::dev.generator.command'));

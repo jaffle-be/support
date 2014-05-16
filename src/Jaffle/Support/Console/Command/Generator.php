@@ -2,38 +2,48 @@
 
 namespace Jaffle\Support\Console\Command;
 
-use Jaffle\Support\Console\StubCreator;
+use Jaffle\Support\Console\Stub;
 use Str;
 use Symfony\Component\Console\Input\InputArgument;
 
 abstract class Generator extends \Illuminate\Console\Command{
 
     /**
-     * @var StubCreator
+     * @var Stub
      */
     protected $creator;
 
     /**
-     * @var
+     * @var string
      */
     protected $namespace;
 
     /**
-     * @var
+     * @var string
      */
     protected $filename;
 
     /**
-     * @var
+     * @var string
      */
     protected $classname;
 
     /**
-     * @param StubCreator $creator
+     * @var string
      */
-    public function __construct(StubCreator $creator)
+    protected $path;
+
+    /**
+     * @param Stub $creator
+     */
+    public function __construct(Stub $creator, $name = null)
     {
         $this->creator = $creator;
+
+        if(!empty($name) && is_string($name))
+        {
+            $this->name = $name;
+        }
 
         parent::__construct();
     }
@@ -77,25 +87,103 @@ abstract class Generator extends \Illuminate\Console\Command{
         $this->save($stub);
     }
 
+    /**
+     * Parse namespace into all guessable parts
+     * @param string $namespace
+     */
     protected function setNamespaceArguments($namespace)
+    {
+        $namespace = $this->prepareNamespace($namespace);
+
+        $this->setNamespace($namespace);
+
+        $this->setClassname($namespace);
+
+        $this->setPath($namespace);
+
+        $this->setFilename($namespace);
+    }
+
+    /**
+     * @param string $namespace
+     * @return string
+     */
+    protected function prepareNamespace($namespace)
     {
         $namespace = str_replace('/', '.', $namespace);
 
-        $namespace = str_replace('.', ' ', $namespace);
+        return str_replace('.', ' ', $namespace);
+    }
+
+    /**
+     * @param $namespace
+     * @return bool
+     */
+    protected function verify($namespace)
+    {
+        return !str_contains($namespace,'.') && !str_contains($namespace, '\\');
+    }
+
+    /**
+     * @param $namespace
+     */
+    protected function setNamespace($namespace)
+    {
+        if(!$this->verify($namespace))
+        {
+            $namespace = $this->prepareNamespace($namespace);
+        }
 
         $this->namespace = str_replace(' ' , '\\', ucwords($namespace));
+    }
+
+    /**
+     * @param string $namespace
+     */
+    protected function setClassname($namespace)
+    {
+        if(!$this->verify($namespace))
+        {
+            $namespace = $this->prepareNamespace($namespace);
+        }
 
         $pieces = explode(' ', $namespace);
 
         $this->classname = ucwords(array_pop($pieces));
-
-        $this->setPath($pieces);
     }
 
-    protected function setPath(array $pieces)
+    /**
+     * @param string $namespace
+     */
+    protected function setPath($namespace)
     {
-        $this->path = ucwords(str_replace(' ', '/', ucwords(implode(' ', $pieces))));
+        $pieces = explode(' ', $namespace);
 
+        $path = ucwords(str_replace(' ', '/', ucwords(implode(' ', $pieces))));
+
+        $this->path = $this->reponise($pieces, $path);
+    }
+
+    protected function setFilename($namespace)
+    {
+        if(!$this->verify($namespace))
+        {
+            $namespace = $this->prepareNamespace($namespace);
+        }
+
+        $pieces = explode(' ', $namespace);
+
+        $$this->filename = array_pop($pieces);
+    }
+
+    /**
+     * Add repository prefix if applicable
+     * @param array $pieces
+     * @param string $path
+     * @return string
+     */
+    protected function reponise(array $pieces, $path)
+    {
         $repo = isset($pieces[1]) ? $pieces[1] : false;
 
         if($repo)
@@ -109,15 +197,25 @@ abstract class Generator extends \Illuminate\Console\Command{
              */
             $base = __DIR__ . '/../../../../../../';
 
-            $this->path = $base . $repo .'/src/' . $this->path;
+            return $base . $repo .'/src/' . $this->path;
         }
+
+        return $path;
     }
 
+    /**
+     * @param null|string $extension
+     * @return string
+     */
     protected function filename($extension = null)
     {
-        return $this->classname . '.php';
+        return $this->filename . '.php';
     }
 
+    /**
+     * @param string $stub
+     * @return bool|void
+     */
     protected function save($stub)
     {
         $filename = $this->filename();

@@ -9,7 +9,9 @@ namespace Jaffle\Support\Console;
 
 use Illuminate\Filesystem\Filesystem;
 
-class StubCreator {
+class Stub{
+
+    protected $stub;
 
     /**
      * @var \Illuminate\Filesystem\Filesystem
@@ -28,17 +30,12 @@ class StubCreator {
      */
     public function create($stub, array $data = array())
     {
-        $stub = $this->files->get(__DIR__ . '/stubs/' . str_replace('.', '/', $stub) . '.stub');
+        $this->load($stub);
 
-        foreach ($data as $key => $value)
-        {
-            $stub = str_replace('{{' . $key  . '}}', $value, $stub);
-        }
-
-        return $stub;
+        return $this->fill($data);
     }
 
-    public function save($path, $stub)
+    public function save($stub, $path)
     {
         $directory = pathinfo($path, PATHINFO_DIRNAME);
 
@@ -49,4 +46,28 @@ class StubCreator {
 
         $this->files->put($path, $stub);
     }
-} 
+
+    /**
+     * @param $stub
+     */
+    protected function load($stub)
+    {
+        $filename = __DIR__ . '/stubs/' . str_replace('.', '/', $stub);
+
+        $this->stub = $this->files->get($filename . '.stub');
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    protected function fill($data = array())
+    {
+        foreach ($data as $key => $value)
+        {
+            $stub = str_replace('{{' . $key  . '}}', $value, $this->stub);
+        }
+
+        return $stub;
+    }
+}
