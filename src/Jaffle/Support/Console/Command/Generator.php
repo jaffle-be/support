@@ -134,6 +134,11 @@ abstract class Generator extends \Illuminate\Console\Command{
             $namespace = $this->prepareNamespace($namespace);
         }
 
+        //do not include last part
+        $pieces = explode(' ', $namespace);
+        array_pop($pieces);
+        $namespace = implode(' ', $pieces);
+
         $this->namespace = str_replace(' ' , '\\', ucwords($namespace));
     }
 
@@ -149,7 +154,9 @@ abstract class Generator extends \Illuminate\Console\Command{
 
         $namespace = ucwords($namespace);
 
-        $this->classname = str_replace(' ', '\\', $namespace);
+        $pieces = explode(' ', $namespace);
+
+        $this->classname = array_pop($pieces);
     }
 
     /**
@@ -177,7 +184,9 @@ abstract class Generator extends \Illuminate\Console\Command{
 
         $pieces = explode(' ', $namespace);
 
-        $this->filename = array_pop($pieces);
+        $filename = ucwords(array_pop($pieces));
+
+        $this->filename = $filename;
     }
 
     /**

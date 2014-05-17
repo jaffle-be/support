@@ -63,9 +63,11 @@ class Stub{
      */
     protected function fill($data = array())
     {
+        $stub = $this->stub;
+
         foreach ($data as $key => $value)
         {
-            $stub = str_replace('{{' . $key  . '}}', $value, $this->stub);
+            $stub = str_replace('{{' . $key  . '}}', $value, $stub);
         }
 
         return $stub;
