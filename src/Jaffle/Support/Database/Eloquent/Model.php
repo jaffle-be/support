@@ -2,6 +2,7 @@
 
 namespace Jaffle\Support\Database\Eloquent;
 
+use Config;
 use App;
 use Jaffle\Support\Exception\TranslationFieldNotFound;
 
