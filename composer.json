@@ -13,7 +13,8 @@
         "illuminate/database":"4.1.x",
         "illuminate/console":"4.1.x",
         "illuminate/filesystem":"4.1.x",
-        "illuminate/validation":"4.1.x"
+        "illuminate/validation":"4.1.x",
+        "illuminate/auth":"4.1.x"
     },
     "require-dev": {
     "mockery/mockery": "0.9.*",

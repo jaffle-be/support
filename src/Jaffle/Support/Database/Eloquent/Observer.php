@@ -2,6 +2,7 @@
 
 namespace Jaffle\Support\Database\Eloquent;
 
+use Illuminate\Auth\AuthManager;
 use Illuminate\Events\Dispatcher;
 use Carbon\Carbon;
 use Auth;
@@ -14,11 +15,18 @@ class Observer {
     protected $events;
 
     /**
+     * @var \Illuminate\Auth\AuthManager
+     */
+    protected $auth;
+
+    /**
      * @param Dispatcher $events
      */
-    public function __construct(Dispatcher $events)
+    public function __construct(Dispatcher $events, AuthManager $auth)
     {
         $this->events = $events;
+
+        $this->auth = $auth;
     }
 
     /**
@@ -39,7 +47,9 @@ class Observer {
      */
     protected function trackBy($model, $field)
     {
-        $model->{$field . '_by'} = Auth::user() ? Auth::user()->id : null;
+        $model->{$field . '_by'} = $this->auth->user() ?
+            $this->auth->user()->id :
+            null;
     }
 
     /**
@@ -49,7 +59,7 @@ class Observer {
      */
     protected function trackAt($model, $field)
     {
-        $model->{$field . '_at'} = Carbon::create()->format('Y-m-d H:i:s');
+        $model->{$field . '_at'} = Carbon::create();
     }
 
 } 

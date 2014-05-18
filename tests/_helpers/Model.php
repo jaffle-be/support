@@ -4,7 +4,7 @@ namespace _Helpers;
 
 class TranslationHelperModel extends \Jaffle\Support\Database\Eloquent\Model{
 
-    protected $fillable = array('title', 'something');
+    protected $fillable = array('title', 'something', 'trackable', 'trackable_at', 'trackable_by');
 
     protected static $translations = array(
         'title'
