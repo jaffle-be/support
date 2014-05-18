@@ -122,7 +122,7 @@ class Model extends \Illuminate\Database\Eloquent\Model{
 
         $translatableFields = array_intersect(static::$translations, $fillables);
 
-        $locales = class_exists('App') ? App::getLocales() : array('nl', 'fr', 'en');
+        $locales = class_exists('Config') ? Config::get('app.locales') : array('nl', 'fr', 'en');
 
         foreach($translatableFields as $index => $key)
         {
