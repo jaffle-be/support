@@ -13,15 +13,13 @@ sudo apt-get install npm
 
 #update to the latest stable version of node
 
+sudo npm config set registry http://registry.npmjs.org/
 sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
 
-sudo npm config set registry http://registry.npmjs.org/
 # update npm to the latest version
 sudo npm update npm
-# not sure if this is before or after, so i run it twice :-)
-sudo npm config set registry http://registry.npmjs.org/
 
 # install our grunt tool
 sudo npm install -g grunt-cli
