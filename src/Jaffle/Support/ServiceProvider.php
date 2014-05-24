@@ -17,6 +17,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider{
 
     public function register()
     {
+        $this->package('jaffle-be/support', 'support');
+
         include(__DIR__ . '/../../start.php');
     }
 

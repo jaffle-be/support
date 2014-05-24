@@ -111,5 +111,6 @@ module.exports = function(grunt) {
 
     // Task definition
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('dist', ['concat:js_frontend','uglify:frontend', 'concat:js_backend','uglify:backend','less'])
 
 };

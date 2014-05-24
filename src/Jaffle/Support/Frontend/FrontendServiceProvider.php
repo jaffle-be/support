@@ -32,10 +32,6 @@ class FrontendServiceProvider extends \Illuminate\Support\ServiceProvider{
             return new InstallCommand();
         });
 
-        $this->app->bindShared('support::dev.frontend.deploy-blade', function($app){
-
-        });
-
         $this->app->bindShared('support::dev.frontend.deploy-grunt', function($app){
             return new GruntDeployCommand($app['files']);
         });
