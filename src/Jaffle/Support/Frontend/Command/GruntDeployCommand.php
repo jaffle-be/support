@@ -182,14 +182,6 @@ class GruntDeployCommand extends \Illuminate\Console\Command {
 
         $this->files->put($this->rootPath . '/package.json', $content);
 
-        //add our grunt dependencies to our local project
-        chdir($this->rootPath);
-        passthru('sudo npm install grunt-contrib-concat --save-dev');
-        passthru('sudo npm install grunt-contrib-less --save-dev');
-        passthru('sudo npm install grunt-contrib-uglify --save-dev');
-        passthru('sudo npm install grunt-contrib-watch --save-dev');
-        passthru('sudo npm install grunt-phpunit --save-dev');
-
         $this->info("Don't forget to adjust the details in your package.json file");
     }
 
