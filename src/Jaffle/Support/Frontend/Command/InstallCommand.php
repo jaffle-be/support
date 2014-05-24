@@ -29,8 +29,6 @@ class InstallCommand extends \Illuminate\Console\Command {
         //commented for now, simply to enhance developing speed
         //@todo don't forget to uncomment
         $this->installServersideDependencies();
-
-        $this->deployTemplates();
     }
 
     protected function installServersideDependencies()
