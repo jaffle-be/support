@@ -2,11 +2,7 @@
 
 # we first want to install our dependencies
 # We'll do this globally on the server
-# but first we'll make sure our server is fully updated.
-
 sudo apt-get update
-sudo apt-get upgrade -y
-
 
 # We're gonne use grunt :-)
 
