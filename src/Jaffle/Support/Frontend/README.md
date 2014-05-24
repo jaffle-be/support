@@ -11,9 +11,16 @@ Which might be pretty combersome at that time, but the improvement itself should
 **make use of commands**
 
 frontend:install
-frontend:deploy
+frontend:deploy-grunt
+frontend:deploy-blade
 
 ##what do we want?
+
+todo:
+
+we need to upgrade our deploy script to distinguish between
+ - a single tenant application ,
+ - a multi tenant application (currently not supported yet)
 
 
 ###Serverside dependencies

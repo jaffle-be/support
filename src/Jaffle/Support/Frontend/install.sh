@@ -1,28 +1,34 @@
 #!/bin/sh
+
 # we first want to install our dependencies
+# We'll do this globally on the server
+# but first we'll make sure our server is fully updated.
+
+sudo apt-get update
+sudo apt-get upgrade -y
 
 
-#we're gonne use grunt :-)
+# We're gonne use grunt :-)
 
-# so first things first we need nodejs and npm installed
+# So lets start with nodejs and npm
 
 sudo apt-get install nodejs
 sudo apt-get install npm
 
-#update the latest stable version of node
+#update to the latest stable version of node
 
 sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
 
-# update npm to latest version
+# update npm to the latest version
 sudo npm update npm
 
 # install our grunt tool
+sudo npm install -g grunt-cli
 
-sudo npm install -g grunt
-sudo npm install -g grunt-contrib-watch
+# also include bower for dependencies
+sudo npm install -g bower
 
-sudo npm install -g grunt-contrib-uglify
-sudo npm install -g grunt-contrib-concat
-sudo npm install -g grunt-contrib-less
+# @todo Find a way that will automatically watch files, even on a server reboot.
+
