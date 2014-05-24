@@ -21,18 +21,6 @@ class InstallCommand extends \Illuminate\Console\Command {
      */
     public function fire()
     {
-        $this->install();
-    }
-
-    protected function install()
-    {
-        //commented for now, simply to enhance developing speed
-        //@todo don't forget to uncomment
-        $this->installServersideDependencies();
-    }
-
-    protected function installServersideDependencies()
-    {
         $dir = getcwd();
 
         chdir('' . __DIR__ . '/../');
