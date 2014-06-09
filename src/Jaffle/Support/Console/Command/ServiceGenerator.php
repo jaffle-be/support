@@ -14,7 +14,7 @@ class ServiceGenerator extends Generator{
      *
      * @var string
      */
-    protected $name = 'dev:service:make';
+    protected $name = 'dev:service';
 
     /**
      * The console command description.

@@ -14,7 +14,7 @@ class CommandGenerator extends Generator{
      *
      * @var string
      */
-    protected $name = 'dev:command:make';
+    protected $name = 'dev:command';
 
     /**
      * The console command description.
