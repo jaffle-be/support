@@ -1,12 +1,12 @@
-support
+Support
 =======
 
 A base package to work with all Jaffle components
 It also provides some helpful commands for developing or to setup frontend related stuff for a new application.
 
-#Commands
+###Commands
 
-##Developer Helper Commands
+####Developer Helper Commands
 
 The following commands are smart enough to detect if we need to put the files in the workbench or in the vendor dir.
 It will place the file at the same directory as where the support package is located.
@@ -14,7 +14,7 @@ It will place the file at the same directory as where the support package is loc
 So if you run the command in a project where this package is actually a workbench, the class created will be created in the workbench directory.
 It's the other way around if the package resides in the vendor dir.
 
-###Actual commands
+#####Actual commands
 
 All these commands need a namespace argument in dot notation:
 
@@ -25,12 +25,12 @@ All these commands need a namespace argument in dot notation:
 
 **Heads up:** It might be that the namespace you're need, is not working as expected if it contains dashes or underscores.
 
-##New Project Commands
+###New Project Commands
 
 These commands should speed up the process to start up a new project.
 Be careful when running these, as they might override anything you've already implemented.
 
-###Actual Commands
+#####Actual Commands
 
 ### `frontend:grunt-install`:
 
@@ -46,14 +46,14 @@ This command generates a basic Gruntfile.js that should suffice for a reasonably
 Generates the necessary template files for layout structuring. It will setup a frontend, a backend and a email template.
 
 
-#The Actual Support Package
+###The Actual Support Package
 ----
 
 Here you'll find the actual stuff that's been implemented when we talk about code.
 
-##Eloquent/Database upgrades
+####Eloquent/Database upgrades
 
-###Translations
+#####Translations
 
 The eloquent model got extended so we can make use of automatic translation of certain database fields.
 
@@ -66,7 +66,7 @@ To make this work, you need to have a `locales` entry in the config/app.php file
 **possible todo**
 We might need another way which allows us to set a translatable field based on a given locale.
 
-####Implementation
+######Implementation
 
 ```php
 /**
@@ -91,7 +91,7 @@ class Example extends Jaffle\Support\Database\Eloquent\Model
 }
 ```
 
-###Observers
+#####Observers
 
 We've implemented a base Observer class which allows for automated tracking of certain fields.
 These fields allow us to track when and by who certain fields were last changed.
@@ -102,7 +102,7 @@ Why?
 now we're missing an actual history of the edits.
 also, we're adding way to much extra columns to our tables with info we might only need once in a while.
 
-####Implementation
+######Implementation
 
 ```php
 
@@ -124,14 +124,14 @@ class Observer extends Jaffle\Support\Database\Eloquent\Observer
 
 ```
 
-###Migrations
+#####Migrations
 
 We added/extended the base Blueprint to allow us to track user info on the timestamps tracking provided by laravel out of the box.
 But you can now also use a shortcut to add extra columns that you wanne track.
 
 For now, usertracking is on by default.
 
-####Implementation
+######Implementation
 
 ```php
 
@@ -179,11 +179,11 @@ class ExampleMigration extends Blueprint
 ---
 
 
-###Form validator
+#####Form validator
 
 This should speed up the process of validating a form
 
-####Implementation
+######Implementation
 
 ```php
 
@@ -222,7 +222,7 @@ class ExampleController extends BaseController
 
 
 
-#What Do We Want More?
+###What Do We Want More?
 
 we need to upgrade our deploy script to distinguish between
  - a single tenant application ,
