@@ -7,7 +7,7 @@ class InstallCommand extends \Illuminate\Console\Command {
      * @todo define name
      * @var string
      */
-    protected $name = 'frontend:install';
+    protected $name = 'frontend:grunt-install';
 
     /**
      * The console command description.

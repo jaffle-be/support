@@ -1,8 +1,5 @@
 <?php namespace Jaffle\Support\Frontend;
 
-use Jaffle\Support\Frontend\Command\InstallCommand;
-use Jaffle\Support\Frontend\Command\GruntDeployCommand;
-
 class FrontendServiceProvider extends \Illuminate\Support\ServiceProvider{
 
 
@@ -29,14 +26,22 @@ class FrontendServiceProvider extends \Illuminate\Support\ServiceProvider{
     {
         $this->app->bindShared('support::dev.frontend.install', function($app)
         {
-            return new InstallCommand();
+            return new Command\InstallCommand();
         });
 
         $this->app->bindShared('support::dev.frontend.deploy-grunt', function($app){
-            return new GruntDeployCommand($app['files']);
+            return new Command\GruntDeployCommand($app['files']);
         });
 
-        $this->commands(array('support::dev.frontend.install', 'support::dev.frontend.deploy-grunt'));
+        $this->app->bindShared('support::dev.frontend.install-templates', function($app){
+            return new Command\TemplatesCommand($app['files']);
+        });
+
+        $this->commands(array(
+            'support::dev.frontend.install',
+            'support::dev.frontend.deploy-grunt',
+            'support::dev.frontend.install-templates'
+        ));
     }
 
     /**

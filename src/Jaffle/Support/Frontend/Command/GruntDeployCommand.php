@@ -26,7 +26,7 @@ class GruntDeployCommand extends \Illuminate\Console\Command {
      * @todo define name
      * @var string
      */
-    protected $name = 'frontend:deploy-grunt';
+    protected $name = 'frontend:grunt-deploy';
 
     /**
      * The console command description.
