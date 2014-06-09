@@ -25,23 +25,22 @@ All these commands need a namespace argument in dot notation:
 
 **Heads up:** It might be that the namespace you're need, is not working as expected if it contains dashes or underscores.
 
-###New Project Commands
+####New Project Commands
 
 These commands should speed up the process to start up a new project.
 Be careful when running these, as they might override anything you've already implemented.
 
 #####Actual Commands
 
-### `frontend:grunt-install`:
+- `frontend:grunt-install`:
 
 This command install all necessary backend dependencies to run grunt, this should normally only be ran once per project.
 
-### `frontend:grunt-deploy`:
+- `frontend:grunt-deploy`:
 
 This command generates a basic Gruntfile.js that should suffice for a reasonably simple project.
 
-
-### `frontend:templates`:
+- `frontend:templates`:
 
 Generates the necessary template files for layout structuring. It will setup a frontend, a backend and a email template.
 
@@ -51,9 +50,7 @@ Generates the necessary template files for layout structuring. It will setup a f
 
 Here you'll find the actual stuff that's been implemented when we talk about code.
 
-####Eloquent/Database upgrades
-
-#####Translations
+#####Eloquent Translations
 
 The eloquent model got extended so we can make use of automatic translation of certain database fields.
 
