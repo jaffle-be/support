@@ -27,4 +27,8 @@ sudo npm install -g grunt-cli
 # also include bower for dependencies
 sudo npm install -g bower
 
+
+#install local packages
+sudo npm install
+
 # @todo Find a way that will automatically watch files, even on a server reboot.

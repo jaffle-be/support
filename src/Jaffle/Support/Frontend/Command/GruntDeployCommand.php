@@ -33,7 +33,7 @@ class GruntDeployCommand extends \Illuminate\Console\Command {
      * @todo define description
      * @var string
      */
-    protected $description = 'Deploys the base for grunt automation of assets, you better not run this if you allready have some things setup' ;
+    protected $description = 'Deploys the base for grunt automation of assets' ;
 
     public function __construct(Filesystem $files)
     {
